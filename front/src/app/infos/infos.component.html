@@ -1,0 +1,45 @@
+<div class="container">
+<div class="jumbotron myBackground">
+<div class="card" >
+    <h3 class="card-header primary-color white-text"><b>DockerGUI</b></h3>
+    <div class="card-block">
+        <h4 class="card-title"></h4>
+        <p class="card-text">Docker offre la possibilité d'emballer et d'exécuter une application dans un environnement peu isolé appelé conteneur. L'isolement et la sécurité vous permettent d'exécuter plusieurs conteneurs simultanément sur un hôte donné. Les conteneurs sont légers car ils n'ont pas besoin de la charge supplémentaire d'un hyperviseur, mais fonctionnent directement dans le noyau de la machine hôte. Cela signifie que vous pouvez exécuter plus de conteneurs sur une combinaison matérielle donnée que si vous utilisiez des machines virtuelles. Vous pouvez même exécuter des conteneurs Docker dans des machines hôtes qui sont en fait des machines virtuelles!</p>
+
+
+
+
+    </div>
+</div>
+</div>
+
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a (click)="run(Image.id) " class="acol">
+  <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+</a>  Run &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a (click)="run(Image.id) " class="acol2">
+  <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+</a>  Stop &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a class="acol4" >
+  <span class="glyphicon glyphicon-pause"></span>
+</a> pause&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol5" >
+      <span class="glyphicon glyphicon-retweet"></span>
+    </a> restart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol2">
+  <span class="glyphicon glyphicon-remove"></span>
+</a> détruire&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol6"  data-toggle="modal" data-target="#myModal2">
+  <span class="glyphicon glyphicon-pencil"></span>
+</a> modifier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol3" data-toggle="modal" data-target="#myModal4">
+  <span class="glyphicon glyphicon-stats"></span>
+</a> statistique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol3"  data-toggle="modal" data-target="#myModal3">
+  <span class="glyphicon glyphicon-hdd"></span>
+</a> processus en cours d'execution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol3" data-toggle="modal" data-target="#myModal1">
+    <span class="glyphicon glyphicon-plus"></span>
+  </a> plus d'information

@@ -1,0 +1,205 @@
+
+
+<div class="container">
+<div class="jumbotron myBackground">
+<button type="button" class="btn btn-primary btn-xs" (click)="getConteneurs()">Rafraichir</button>
+<button type="button" class="btn btn-danger btn-xs" (click)="rmStopped()">Nettoyer</button>
+<div class="bpos">
+  <div class="container ">
+
+      <div class="row ">
+          <div class="col-md-4 col-md-offset-3 ">
+              <form action="" class="search-form">
+                  <div class="form-group has-feedback">
+              		<label for="search" class="sr-only">Search</label>
+  <input type="text" class="form-control" name="search" id="search" placeholder="search" [(ngModel)]="searchText">
+  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+  </div>
+<br><br>
+<table  class="table " cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>ID CONTENEUR</th>
+      <th>IMAGE</th>
+      <th>COMMAND</th>
+      <th>CRÉÉ</th>
+      <th>STATUT</th>
+      <th>NOM</th>
+      <th>PORTS</th>
+      <th>ACTIONS</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>ID CONTENEUR</th>
+      <th>IMAGE</th>
+      <th>COMMAND</th>
+      <th>CRÉÉ</th>
+      <th>STATUT</th>
+      <th>PORTS</th>
+      <th>NOM</th>
+      <th>ACTIONS</th>
+
+    </tr>
+  </tfoot>
+    <tr *ngFor="let conteneur of conteneurs | search : searchText">
+      <td>{{conteneur.Id}}</td>
+      <td>{{conteneur.Image  | shorten: 12}}</td>
+      <td >{{conteneur.Command | shorten: 12:'...'}}</td>
+      <td width=100px>{{conteneur.Created}}</td>
+      <td >{{conteneur.Status}}</td>
+      <td width=10px>{{conteneur.Names}}</td>
+      <td><div *ngFor="let key of conteneur.Ports">{{key.PrivatePort}}<div *ngIf="key.PublicPort">−>{{key.PublicPort}}</div><br/></div>
+      <td width=220px>
+
+                <div class="modal fade" id="myModal2" role="dialog">
+                  <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Renommer {{selectConteneur}}</h4>
+                      </div>
+                      <div class="modal-body">
+                          <form action="/action_page.php">
+                          Nouveau Nom: <input class="form-control" type="text" name="fname" [(ngModel)]="newName"><br>
+                          <input type="submit" value="submit" class="btn btn-info  btn-block"
+                          (click)="renameConteneur(selectConteneur , newName)" data-dismiss="modal"/>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal fade " id="myModal5" role="dialog">
+                       <div class="modal-body " >
+                        </div>
+                </div>
+        <a class="acol" *ngIf="conteneur.Status.indexOf('Up') != 0">
+          <span class="glyphicon glyphicon-play" (click)="startConteneur(conteneur.Id)" aria-hidden="true"></span>
+          </a>
+        <a class="acol" *ngIf="conteneur.Status.indexOf('Up') == 0 && conteneur.Status.indexOf('Paused') < 0">
+          <span class="glyphicon glyphicon-stop" (click)="stopConteneur(conteneur.Id)" aria-hidden="true"></span>
+          </a>
+        <a class="acol4" *ngIf=" (conteneur.Status.search('Paused')  > 0)">
+          <span class="glyphicon glyphicon-play" (click)="unpauseConteneur(conteneur.Id)"></span>
+          </a>
+        <a class="acol4" *ngIf=" (conteneur.Status.search('Paused')  < 0) && (conteneur.Status.indexOf('Up') == 0)">
+          <span class="glyphicon glyphicon-pause" (click)="pauseConteneur(conteneur.Id)"></span>
+          </a>
+        <a  class="acol5" *ngIf="conteneur.Status.indexOf('Up') != 0 || conteneur.Status.indexOf('Paused') < 0">
+              <span class="glyphicon glyphicon-retweet" (click)="restartConteneur(conteneur.Id)"></span>
+            </a>
+        <a  class="acol2">
+          <span class="glyphicon glyphicon-remove" (click)="rmConteneur(conteneur.Id)"></span>
+          </a>
+        <a  class="acol6"  data-toggle="modal" data-target="#myModal2" (click)="getConteneur(conteneur.Id)">
+          <span class="glyphicon glyphicon-pencil"></span>
+          </a>
+        <a  class="acol3" data-toggle="modal" data-target="#myModal5">
+          <span class="glyphicon glyphicon-stats" ></span>
+        </a>
+
+        <a  class="acol3"  data-toggle="modal" data-target="#myModal3">
+          <span class="glyphicon glyphicon-hdd" (click)="getProcess(conteneur.Id)"></span>
+          </a>
+        <a  class="acol3" data-toggle="modal" data-target="#myModal1">
+            <span class="glyphicon glyphicon-plus"  (click)="getLogs(conteneur.Id)"></span>
+            </a>
+
+
+
+
+
+
+        </td>
+
+    </tr>
+</table>
+<div class="modal fade " id="myModal1" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Les Logs</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            {{logs | ltrim : "\n"}}<br/>
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+
+<div class="modal fade " id="myModal3" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Les processus en cours d'éxecution</h4>
+            <p>{{process}}</p>
+          </div>
+          <div class="modal-body">
+            <table  class="table " cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                    <th>UID</th>
+                    <th>PID</th>
+                    <th>PPID</th>
+                    <th>c</th>
+                    <th>STIME</th>
+                    <th>TTY</th>
+                    <th>TIME</th>
+                    <th>CMD</th>
+                  </tr>
+              </thead>
+              <tr *ngFor="let process of processes">
+              <td *ngFor="let attribut of process">
+                {{attribut}}
+              </td>
+              </tr>
+              </table>
+          </div>
+          </div>
+          </div>
+          </div>
+</div>
+</div>
+<!--
+<P class="fopos">
+
+<a (click)="run(Image.id) " class="acol">
+  <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+</a>  Run &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a (click)="run(Image.id) " class="acol2">
+  <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+</a>  Stop &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a class="acol4" >
+  <span class="glyphicon glyphicon-pause"></span>
+</a> pause&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol5" >
+      <span class="glyphicon glyphicon-retweet"></span>
+    </a> restart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol2">
+  <span class="glyphicon glyphicon-remove"></span>
+</a> détruire&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol6"  data-toggle="modal" data-target="#myModal2">
+  <span class="glyphicon glyphicon-pencil"></span>
+</a> modifier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol3" data-toggle="modal" data-target="#myModal4">
+  <span class="glyphicon glyphicon-stats"></span>
+</a> statistique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol3"  data-toggle="modal" data-target="#myModal3">
+  <span class="glyphicon glyphicon-hdd"></span>
+</a> processus en cours d'execution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a  class="acol3" data-toggle="modal" data-target="#myModal1">
+    <span class="glyphicon glyphicon-plus"></span>
+  </a> plus d'information
+</P>-->

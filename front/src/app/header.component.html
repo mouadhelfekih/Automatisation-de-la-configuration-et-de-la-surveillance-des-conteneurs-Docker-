@@ -1,0 +1,20 @@
+ <nav id="header" class="navbar navbar-light teal lighten-4 navbar-fixed-top myBackground2">
+  <div id="header-container" class="container navbar-container">
+    <div class="navbar-header">
+      <a class="navbar-brand"  href="#"><div class="fbar"><b>DockerGUI</b></div></a>
+    </div>
+    <ul class="nav navbar-nav ">
+      <li [class]="active(1)" (click)="selectedId=1"><a href="#"  [routerLink]="['/']"><div class="fbar"><b>Home</b></div></a></li>
+      <li [class]="active(2)" (click)="selectedId=2"><a href="#" [routerLink]="['/conteneurs',{'user':user}]"><div class="fbar"><b>Conteneurs</b></div></a></li>
+      <li [class]="active(3)" (click)="selectedId=3"><a href="#" [routerLink]="['/images',{'user':user}]"><div class="fbar"><b>Images</b></div></a></li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><div class="fbar"><span class="glyphicon glyphicon-user"></span>{{user}}</div></a></li>
+      <li><a href="http://127.0.0.1:8000/logout"><div class="fbar"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</div></a></li>
+    </ul>
+  </div>
+</nav>
+<div>
+  <br><br><br><br><br>
+<router-outlet></router-outlet>

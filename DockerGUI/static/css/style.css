@@ -1,0 +1,55 @@
+
+
+.myBackground {
+
+  background-color: rgba(255,255,255, 0.5);
+  color: inherit;
+}
+
+.fbar {
+  color: #800000 ;
+  font-family: cursive;
+}
+
+body {
+
+color:#184398;
+background-color:	#c5c5c5	;
+background-image: url(image/2.jpg);
+background-repeat:no-repeat;
+background-size: 1440px 800px;
+background-attachment: fixed;
+font-family: cursive;
+font-size: 16px ;
+
+}
+
+rs {
+    position: absolute;
+    left: 78%;
+    top: 80%;
+}
+ds{
+    position: absolute;
+    left: 45%;
+    top:20%;
+}
+
+dv{
+  position: absolute;
+  left:70% ;
+  top: 200px;
+
+}
+ps{
+  position: absolute;
+  left: 760px ;
+  top: 60px;
+  color: #A52A2A;
+}
+pp
+{
+  position: absolute;
+  top:60px;
+  color: #A52A2A;
+}
